@@ -55,7 +55,7 @@ def github():
             # remote = repo.remote()
             # 从远程版本库拉取分支
             # remote.pull()
-            logger.info("pull操作完成")
+            logger.info("pull操作完成了！")
             # commit = request.json['after'][0:6]
             # logger.info('Repository updated with commit {}'.format(commit))
         except:
