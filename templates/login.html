@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>登录页</title>
+
+	<link href="static/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="static/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="static/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="static/resources/plugins/checkbix/css/checkbix.min.css" rel="stylesheet"/>
+	<link href="static/resources/css/login.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="login-window">
+    <form id="login-form" action="login" method="post" name="login">
+        {{ form.csrf_token }}
+        <div class="input-group m-b-20">
+            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+            <div class="fg-line">
+                {{ form.username(class="form-control",placeholder="请输入账号") }}
+            </div>
+        </div>
+        <div class="input-group m-b-20">
+            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+            <div class="fg-line">
+                {{ form.password(class="form-control",placeholder="请输入密码") }}
+            </div>
+        </div>
+        <script>console.log({{ form.errors }})</script>
+        <input id="login-bt" type="submit" value="" class="waves-effect waves-button waves-float">
+        <a class="waves-effect waves-button waves-float" href="register">注册</a>
+        <p>{% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+        </p>
+
+    </form>
+</div>
+<script src="static/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="static/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="static/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="static/resources/plugins/checkbix/js/checkbix.min.js"></script>
+<script src="static/resources/js/login.js"></script>
+<script type="text/javascript">
+	Checkbix.init();
+</script>
+</body>
+</html>
