@@ -3,8 +3,7 @@
 # Time    : 2019/12/31 11:24
 # Author  : W 
 # FileName: run.py
-
-
+import hmac
 import sys
 sys.path.append("..")
 
@@ -31,8 +30,12 @@ def load_user(user_id):
 def github():
     """ Entry point for github webhook testkey"""
     sha,signature = request.headers.get('X-Hub-Signature').split('=')
-    print(f'signature:{signature}')
-    if signature == current_app.config.get('GITHUB_SECRET'):
+    print(f'signature:{signature}', request.data)
+    secret = str.encode(current_app.config.get('GITHUB_SECRET'))
+    hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
+    print(f'hashhex:{hashhex}')
+    if hmac.compare_digest(hashhex, signature):
+        print('hash对比正确', current_app.config.get('REPO_PATH'))
         repo = Repo(current_app.config.get('REPO_PATH'))
         origin = repo.remotes.origin
         origin.pull('--rebase')
