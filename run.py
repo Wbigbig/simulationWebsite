@@ -47,6 +47,7 @@ def github():
             logger.info('Repository updated with commit {}'.format(commit))
         except:
             logger.info(traceback.format_exc())
+            return jsonify({}),500
     return jsonify({}),200
 
 
