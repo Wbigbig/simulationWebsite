@@ -14,6 +14,7 @@ from __init__ import login_manager, login_required, current_user, login_user, lo
 from flask import render_template, redirect, url_for, request, flash, jsonify, current_app
 from git import Repo
 
+import os
 import traceback
 
 from common.models import User
@@ -39,6 +40,8 @@ def github():
     logger.info(f'hashhex:{hashhex}')
     if hmac.compare_digest(hashhex, signature):
         try:
+            if 'GIT_DIR' in os.environ:
+                del os.environ['GIT_DIR']
             logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
             logger.info("开始拉仓库")
             # repo = Repo(current_app.config.get('REPO_PATH'))
