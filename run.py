@@ -40,7 +40,8 @@ def github():
         try:
             logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
             logger.info("开始拉仓库")
-            repo = Repo(current_app.config.get('REPO_PATH'))
+            # repo = Repo(current_app.config.get('REPO_PATH'))
+            repo = Repo("/usr/local/python3/graduate998/backStageNew")
             #---
             # origin = repo.remotes.origin
             # origin.pull()
