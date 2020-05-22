@@ -31,6 +31,7 @@ def load_user(user_id):
 @app.route("/github",methods=["POST"])
 def github():
     """ Entry point for github webhook testkey"""
+    logger.info("newnewnewcode")
     sha,signature = request.headers.get('X-Hub-Signature').split('=')
     logger.info(f'signature:{signature}'+ str(request.data))
     secret = str.encode(current_app.config.get('GITHUB_SECRET'))
