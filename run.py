@@ -12,7 +12,7 @@ from __init__ import app,logger
 from __init__ import login_manager, login_required, current_user, login_user, logout_user
 
 from flask import render_template, redirect, url_for, request, flash, jsonify, current_app
-from git import Repo
+from git.repo import Repo
 
 import os
 import traceback
@@ -46,14 +46,15 @@ def github():
             logger.info("开始拉仓库")
             # repo = Repo(current_app.config.get('REPO_PATH'))
             repo = Repo("/usr/local/python3/graduate998/backStageNew")
+            repo.git.pull()
             #---
             # origin = repo.remotes.origin
             # origin.pull()
             #---
             # 获取默认版本库 origin
-            remote = repo.remote()
+            # remote = repo.remote()
             # 从远程版本库拉取分支
-            remote.pull()
+            # remote.pull()
             logger.info("pull操作完成")
             commit = request.json['after'][0:6]
             logger.info('Repository updated with commit {}'.format(commit))
