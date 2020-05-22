@@ -47,6 +47,7 @@ logger.info("reload")
 logger.info("修复crud页******************************************push code test reload!###########################################")
 logger.info("new code push!***************************")
 logger.info("new code push!###########################")
+logger.info("行不行啊兄弟！")
 app.config['GITHUB_SECRET'] = read_info[0].replace("\n", "")
 app.config['REPO_PATH'] = read_info[1]
 
