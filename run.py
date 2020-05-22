@@ -32,13 +32,13 @@ def load_user(user_id):
 def github():
     """ Entry point for github webhook testkey"""
     sha,signature = request.headers.get('X-Hub-Signature').split('=')
-    logger.info(f'signature:{signature}', request.data)
+    logger.info(f'signature:{signature}'+ str(request.data))
     secret = str.encode(current_app.config.get('GITHUB_SECRET'))
     hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
     logger.info(f'hashhex:{hashhex}')
     if hmac.compare_digest(hashhex, signature):
         try:
-            logger.info('hash对比正确', current_app.config.get('REPO_PATH'))
+            logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
             repo = Repo(current_app.config.get('REPO_PATH'))
             origin = repo.remotes.origin
             origin.pull()
