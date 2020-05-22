@@ -19,5 +19,5 @@ TEMPLATES_AUTO_RELOAD = True
 SEND_FILE_MAX_AGE_DEFAULT = timedelta(seconds=1)
 
 # 数据库连接
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:rootpwd@localhost:3306/simulation_web?charset=utf8"
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Woshinidie123.@localhost:3306/simulation_web?charset=utf8"
 # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:rootpwd@127.0.0.1:3306/simulation_web?charset=utf8"

@@ -41,6 +41,7 @@ def github():
             logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
             repo = Repo(current_app.config.get('REPO_PATH'))
             origin = repo.remotes.origin
+            logger.info("开始拉仓库")
             origin.pull()
             commit = request.json['after'][0:6]
             logger.info('Repository updated with commit {}'.format(commit))

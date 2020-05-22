@@ -41,6 +41,10 @@ app.jinja_env.auto_reload = True    # 模板热更新
 with open('key.txt') as f:
     read_info = f.readlines()
 
+logger.info(read_info[0].replace("\n", ""))
+logger.info(read_info[1])
+logger.info("reload")
+logger.info("push code test reload!*******************************************************")
 app.config['GITHUB_SECRET'] = read_info[0].replace("\n", "")
 app.config['REPO_PATH'] = read_info[1]
 
