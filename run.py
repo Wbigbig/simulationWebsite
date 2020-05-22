@@ -12,7 +12,7 @@ from __init__ import app,logger
 from __init__ import login_manager, login_required, current_user, login_user, logout_user
 
 from flask import render_template, redirect, url_for, request, flash, jsonify, current_app
-from git.repo import Repo
+from git import Repo
 
 import traceback
 
@@ -39,16 +39,22 @@ def github():
     if hmac.compare_digest(hashhex, signature):
         try:
             logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
-            repo = Repo(current_app.config.get('REPO_PATH'))
-            # origin = repo.remotes.origin
             logger.info("开始拉仓库")
+            repo = Repo(current_app.config.get('REPO_PATH'))
+            #---
+            # origin = repo.remotes.origin
             # origin.pull()
-            repo.git.pull()
+            #---
+            # 获取默认版本库 origin
+            remote = repo.remote()
+            # 从远程版本库拉取分支
+            remote.pull()
+            logger.info("pull操作完成")
             commit = request.json['after'][0:6]
             logger.info('Repository updated with commit {}'.format(commit))
         except:
             logger.info(traceback.format_exc())
-            return jsonify({}),500
+            return jsonify({"error": str(traceback.format_exc())}),500
     return jsonify({}),200
 
 
