@@ -42,7 +42,7 @@ def github():
             repo = Repo(current_app.config.get('REPO_PATH'))
             origin = repo.remotes.origin
             logger.info("开始拉仓库")
-            origin.pull('--rebase')
+            origin.pull()
             commit = request.json['after'][0:6]
             logger.info('Repository updated with commit {}'.format(commit))
         except:
