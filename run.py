@@ -7,12 +7,14 @@ import hmac
 import sys
 sys.path.append("..")
 
-from __init__ import app
+from __init__ import app,logger
 # from __init__ import manager
 from __init__ import login_manager, login_required, current_user, login_user, logout_user
 
 from flask import render_template, redirect, url_for, request, flash, jsonify, current_app
 from git import Repo
+
+import traceback
 
 from common.models import User
 from common.forms import LoginForm, registerForm
@@ -30,17 +32,20 @@ def load_user(user_id):
 def github():
     """ Entry point for github webhook testkey"""
     sha,signature = request.headers.get('X-Hub-Signature').split('=')
-    print(f'signature:{signature}', request.data)
+    logger.info(f'signature:{signature}', request.data)
     secret = str.encode(current_app.config.get('GITHUB_SECRET'))
     hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
-    print(f'hashhex:{hashhex}')
+    logger.info(f'hashhex:{hashhex}')
     if hmac.compare_digest(hashhex, signature):
-        print('hash对比正确', current_app.config.get('REPO_PATH'))
-        repo = Repo(current_app.config.get('REPO_PATH'))
-        origin = repo.remotes.origin
-        origin.pull('--rebase')
-        commit = request.json['after'][0:6]
-        print('Repository updated with commit {}'.format(commit))
+        try:
+            logger.info('hash对比正确', current_app.config.get('REPO_PATH'))
+            repo = Repo(current_app.config.get('REPO_PATH'))
+            origin = repo.remotes.origin
+            origin.pull()
+            commit = request.json['after'][0:6]
+            logger.info('Repository updated with commit {}'.format(commit))
+        except:
+            logger.info(traceback.format_exc())
     return jsonify({}),200
 
 

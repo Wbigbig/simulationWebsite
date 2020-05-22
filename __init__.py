@@ -8,6 +8,30 @@ from flask import Flask
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
+import logging.handlers
+
+
+
+LOG_FILE = 'log.log'
+# 实例化handler
+handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024*1024, backupCount=5)
+
+fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - [%(levelname)s] - %(message)s'
+
+# 实例化formatter
+formatter = logging.Formatter(fmt)
+# 为handler添加formatter
+handler.setFormatter(formatter)
+# console_handler.setFormatter(formatter)
+# 获取名为tst的logger
+logger = logging.getLogger('tst')
+# 为logger添加handler
+logger.addHandler(handler)
+# logger.addHandler(console_handler)
+logger.setLevel(logging.DEBUG)
+
+logger.info('first info message')
+logger.debug('first debug message')
 
 app = Flask(__name__)
 
