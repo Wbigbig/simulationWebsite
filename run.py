@@ -12,7 +12,7 @@ from __init__ import app,logger
 from __init__ import login_manager, login_required, current_user, login_user, logout_user
 
 from flask import render_template, redirect, url_for, request, flash, jsonify, current_app
-from git import Repo
+from git.repo import Repo
 
 import traceback
 
@@ -40,9 +40,10 @@ def github():
         try:
             logger.info('hash对比正确' + current_app.config.get('REPO_PATH'))
             repo = Repo(current_app.config.get('REPO_PATH'))
-            origin = repo.remotes.origin
+            # origin = repo.remotes.origin
             logger.info("开始拉仓库")
-            origin.pull()
+            # origin.pull()
+            repo.git.pull()
             commit = request.json['after'][0:6]
             logger.info('Repository updated with commit {}'.format(commit))
         except:
