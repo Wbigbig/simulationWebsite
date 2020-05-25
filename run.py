@@ -48,7 +48,7 @@ def github():
             repo = Repo("/usr/local/python3/graduate998/backStageNew")
             # repo.git.pull()
             #---
-            origin = repo.remotes.master
+            origin = repo.remotes.origin
             origin.pull()
             #---
             # 获取默认版本库 origin
