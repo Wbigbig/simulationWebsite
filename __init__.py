@@ -44,10 +44,8 @@ with open('key.txt') as f:
 logger.info(read_info[0].replace("\n", ""))
 logger.info(read_info[1])
 logger.info("reload")
-logger.info("修复crud页******************************************push code test reload!###########################################")
-logger.info("new code push!***************************")
-logger.info("new code push!###########################")
-logger.info("快要崩了啊兄弟！！！！！")
+logger.info("每天都有新征程")
+
 app.config['GITHUB_SECRET'] = read_info[0].replace("\n", "")
 app.config['REPO_PATH'] = read_info[1]
 
